@@ -1,9 +1,9 @@
-
-import React, { useState, useEffect } from "react";
+import React from "react";
 import './../styles/App.css';
 
 const App = () => {
-    const cityList = [{ name: 'Goa', country: 'India' },
+  const cityList = [
+    { name: 'Goa', country: 'India' },
     { name: 'Amsterdam', country: 'Netherlands' },
     { name: 'New York', country: 'USA' },
     { name: 'Darjeeling', country: 'India' },
@@ -14,7 +14,7 @@ const App = () => {
     { name: 'Museum Island', country: 'Germany' },
     { name: 'Munnar', country: 'India' },
     { name: 'Leh Ladakh', country: 'India' },
-    { name: 'Goa', country: 'India' },
+    { name: 'Goa', country: 'India' }, // duplicate
     { name: 'Agra', country: 'India' },
     { name: 'Dalhousie', country: 'India' },
     { name: 'Coorg', country: 'India' },
@@ -31,19 +31,24 @@ const App = () => {
     { name: 'Mussoorie', country: 'India' },
     { name: 'Mount Abu', country: 'India' },
     { name: 'Tirupati', country: 'India' },
-    ]
-    
+  ];
 
-    const indiancities=cityList.filter((item) => item.country=== 'India')
+  // Filter only Indian cities and remove duplicates
+  const indianCities = cityList
+    .filter((item) => item.country === 'India')
+    .filter((item, index, self) =>
+      index === self.findIndex((c) => c.name === item.name)
+    );
+
   return (
     <div className="App">
       <ol>
-        {indiancities.map((place, index) => (
+        {indianCities.map((place, index) => (
           <li key={`location${index + 1}`}>{place.name}</li>
         ))}
       </ol>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
